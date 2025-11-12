@@ -36,9 +36,7 @@ export default function VisitStatusSection({ form, onNext, onPrev }: VisitStatus
               <input
                 type="radio"
                 value="true"
-                {...register('visited_past_12_months', {
-                  setValueAs: (v) => v === 'true'
-                })}
+                {...register('visited_past_12_months')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">はい</span>
@@ -47,15 +45,13 @@ export default function VisitStatusSection({ form, onNext, onPrev }: VisitStatus
               <input
                 type="radio"
                 value="false"
-                {...register('visited_past_12_months', {
-                  setValueAs: (v) => v === 'false' ? false : v === 'true'
-                })}
+                {...register('visited_past_12_months')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">いいえ</span>
             </label>
           </div>
-          {visited === true && (
+          {(visited === true || visited === 'true') && (
             <div className="mt-3">
               <input
                 type="number"

@@ -80,9 +80,7 @@ export default function PostQuestionSection({ form, onPrev, onSubmit, isSubmitti
               <input
                 type="radio"
                 value="true"
-                {...register('similar_initiatives_known', {
-                  setValueAs: (v) => v === 'true'
-                })}
+                {...register('similar_initiatives_known')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">ある</span>
@@ -91,15 +89,13 @@ export default function PostQuestionSection({ form, onPrev, onSubmit, isSubmitti
               <input
                 type="radio"
                 value="false"
-                {...register('similar_initiatives_known', {
-                  setValueAs: (v) => v === 'false' ? false : v === 'true'
-                })}
+                {...register('similar_initiatives_known')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">ない</span>
             </label>
           </div>
-          {similarInitiativesKnown === true && (
+          {(similarInitiativesKnown === true || similarInitiativesKnown === 'true') && (
             <input
               type="text"
               placeholder="地名・施設名を入力"

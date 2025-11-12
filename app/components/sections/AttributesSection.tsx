@@ -80,9 +80,7 @@ export default function AttributesSection({ form, onNext, onPrev }: AttributesSe
               <input
                 type="radio"
                 value="true"
-                {...register('has_children', {
-                  setValueAs: (v) => v === 'true'
-                })}
+                {...register('has_children')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">あり</span>
@@ -91,9 +89,7 @@ export default function AttributesSection({ form, onNext, onPrev }: AttributesSe
               <input
                 type="radio"
                 value="false"
-                {...register('has_children', {
-                  setValueAs: (v) => v === 'false' ? false : v === 'true'
-                })}
+                {...register('has_children')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500"
               />
               <span className="text-gray-700">なし</span>

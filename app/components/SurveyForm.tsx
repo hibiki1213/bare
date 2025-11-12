@@ -15,9 +15,16 @@ import AttributesSection from './sections/AttributesSection'
 import PostQuestionSection from './sections/PostQuestionSection'
 import ProgressBar from './ProgressBar'
 
+// 文字列をbooleanに変換するヘルパー
+// react-hook-formは文字列として送信するため、文字列を先にチェック
+const stringToBoolean = z.union([
+  z.string().transform((val) => val === 'true'),
+  z.boolean(),
+]).optional()
+
 const surveySchema = z.object({
   consent: z.boolean().refine(val => val === true, '同意が必要です'),
-  visited_past_12_months: z.boolean().optional(),
+  visited_past_12_months: stringToBoolean,
   visit_count_past_12_months: z.number().optional(),
   visit_probability_next_12_months: z.number().min(0).max(100).optional(),
   visit_purposes: z.array(z.string()).optional(),
@@ -41,14 +48,14 @@ const surveySchema = z.object({
   age: z.number().optional(),
   gender: z.string().optional(),
   household_income: z.string().optional(),
-  has_children: z.boolean().optional(),
+  has_children: stringToBoolean,
   risk_aversion: z.number().min(0).max(10).optional(),
   visit_frequency: z.string().optional(),
   residence_prefecture: z.string().optional(),
   zero_wtp_reason: z.string().optional(),
   scenario_sufficient: z.string().optional(),
   scenario_insufficient_info: z.string().optional(),
-  similar_initiatives_known: z.boolean().optional(),
+  similar_initiatives_known: stringToBoolean,
   similar_initiatives_location: z.string().optional(),
 })
 
