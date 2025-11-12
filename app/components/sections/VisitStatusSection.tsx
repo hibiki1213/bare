@@ -29,7 +29,7 @@ export default function VisitStatusSection({ form, onNext, onPrev }: VisitStatus
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            1. あなたは過去12か月に【観光地名】を訪れましたか？
+            1. あなたは過去12か月に【高尾山】を訪れましたか？
           </label>
           <div className="space-y-2">
             <label className="flex items-center space-x-3 cursor-pointer">

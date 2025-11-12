@@ -17,7 +17,7 @@ export default function AwarenessSection({ form, onNext, onPrev }: AwarenessSect
 
       <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
         <p className="text-sm text-gray-700 leading-relaxed">
-          【観光地名】では、近年、クマの出没があり、管理者は注意喚起・巡回等を行っています（※被害件数・出没件数の実データをここに簡潔に記載）。
+          【高尾山】では、近年、クマの出没があり、管理者は注意喚起・巡回等を行っています（※被害件数・出没件数の実データをここに簡潔に記載）。
         </p>
       </div>
 
