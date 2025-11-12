@@ -17,7 +17,7 @@ import ProgressBar from './ProgressBar'
 
 const surveySchema = z.object({
   consent: z.boolean().refine(val => val === true, '同意が必要です'),
-  visited_past_12_months: z.boolean(),
+  visited_past_12_months: z.boolean().optional(),
   visit_count_past_12_months: z.number().optional(),
   visit_probability_next_12_months: z.number().min(0).max(100).optional(),
   visit_purposes: z.array(z.string()).optional(),
@@ -72,10 +72,11 @@ export default function SurveyForm() {
     mode: 'onChange',
     defaultValues: {
       consent: false,
+      visited_past_12_months: false,
     },
   })
 
-  const { watch, setValue, handleSubmit, formState: { errors } } = form
+  const { watch, setValue, handleSubmit, formState: { errors, isValid } } = form
 
   // ランダム割付の初期化
   useEffect(() => {
@@ -96,6 +97,7 @@ export default function SurveyForm() {
   const totalSteps = 7
 
   const onSubmit = async (data: SurveyFormData) => {
+    console.log('onSubmit called', data)
     setIsSubmitting(true)
     setSubmitError(null)
 
@@ -217,12 +219,23 @@ export default function SurveyForm() {
             <AttributesSection form={form} onNext={nextStep} onPrev={prevStep} />
           )}
           {currentStep === 6 && (
-            <PostQuestionSection 
-              form={form} 
-              onPrev={prevStep}
-              isSubmitting={isSubmitting}
-              submitError={submitError}
-            />
+            <>
+              {Object.keys(errors).length > 0 && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+                  <p className="text-sm font-medium text-red-800 mb-2">バリデーションエラー:</p>
+                  <pre className="text-xs text-red-600 overflow-auto">
+                    {JSON.stringify(errors, null, 2)}
+                  </pre>
+                </div>
+              )}
+              <PostQuestionSection 
+                form={form} 
+                onPrev={prevStep}
+                onSubmit={handleSubmit(onSubmit)}
+                isSubmitting={isSubmitting}
+                submitError={submitError}
+              />
+            </>
           )}
         </form>
       </div>

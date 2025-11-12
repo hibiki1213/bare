@@ -5,14 +5,23 @@ import { UseFormReturn } from 'react-hook-form'
 interface PostQuestionSectionProps {
   form: UseFormReturn<any>
   onPrev: () => void
+  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>
   isSubmitting: boolean
   submitError: string | null
 }
 
-export default function PostQuestionSection({ form, onPrev, isSubmitting, submitError }: PostQuestionSectionProps) {
-  const { register, watch } = form
+export default function PostQuestionSection({ form, onPrev, onSubmit, isSubmitting, submitError }: PostQuestionSectionProps) {
+  const { register, watch, formState: { errors } } = form
   const scenarioSufficient = watch('scenario_sufficient')
   const similarInitiativesKnown = watch('similar_initiatives_known')
+
+  const handleSubmitClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    console.log('Submit button clicked')
+    console.log('Form errors:', errors)
+    console.log('Form values:', watch())
+    onSubmit(e)
+  }
 
   return (
     <div className="bg-white rounded-2xl shadow-sm p-8 space-y-6">
@@ -118,6 +127,7 @@ export default function PostQuestionSection({ form, onPrev, isSubmitting, submit
         </button>
         <button
           type="submit"
+          onClick={handleSubmitClick}
           disabled={isSubmitting}
           className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-xl font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
         >
